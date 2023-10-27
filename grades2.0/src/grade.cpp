@@ -1,16 +1,15 @@
 
-#include "median.h"
 #include "student.h"
-#include <vector>
+#include "median.h"
 #include <stdexcept>
 
-using std::vector;  using std::domain_error;
+using std::domain_error;
 
 double grade (double midterm, double final, double homework) {
     return (midterm * 0.2) + (final * 0.4) + (homework * 0.4);
 }
 
-double grade (double midterm, double final, const vector<double>& hw) {
+double grade (double midterm, double final, const double_con& hw) {
     if (hw.size() == 0)
         throw domain_error("Your dumbshit homeworks is empty!");
     return grade (midterm, final, median(hw));

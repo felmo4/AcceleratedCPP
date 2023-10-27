@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include <algorithm>
 #include <stdexcept>
 #include <ios>
@@ -10,8 +9,8 @@
 #include "student.h"
 
 using std::cout;    using std::cin;
-using std::string;  using std::vector;
-using std::istream; using std::sort;
+using std::string;  using std::sort;
+using std::istream; 
 using std::domain_error;    
 using std::streamsize;
 using std::setprecision;
@@ -20,7 +19,7 @@ using std::max;
 int main() {
 
     Student student;
-    vector<Student> classlist;
+    student_con classlist;
     string::size_type maxlen = 0;
 
     while (read(cin, student)) {
@@ -28,13 +27,15 @@ int main() {
         classlist.push_back(student);
     }
 
-    sort (classlist.begin(), classlist.end(), compare);
+    // change this!
+    classlist.sort(compare);
     
-    for (vector<Student>::size_type c = 0; c != classlist.size(); c++) {
-        cout << classlist[c].name 
-            << string(maxlen + 1 - classlist[c].name.size(), ' ');
+    for (student_con::const_iterator iter = classlist.begin(); 
+        iter != classlist.end(); iter++) {
+        cout << iter->name 
+            << string(maxlen + 1 - iter->name.size(), ' ');
         try {
-            double finalgrade = grade(classlist[c]);
+            double finalgrade = grade(*iter);
             streamsize orig = cout.precision();
             cout << setprecision(3)
                 << finalgrade << setprecision(orig);

@@ -2,13 +2,12 @@
 
 using std::cout; using std::cin;
 using std::istream;
-using std::vector;
 
 bool compare (const Student& stud1, const Student& stud2) {
     return stud1.name < stud2.name;
 }
 
-istream& read_hw (istream& in, vector<double>& hw) {
+istream& read_hw (istream& in, double_con& hw) {
     if(in) {
         hw.clear();
         double x;

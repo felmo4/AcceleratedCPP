@@ -1,8 +1,8 @@
 #ifndef GUARD_median_h
 #define GUARD_median_h
 
-#include <vector>
+#include "student.h"
 
-double median(std::vector<double> vec);
+double median(double_con vec);
 
 #endif
