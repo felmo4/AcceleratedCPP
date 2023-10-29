@@ -1,50 +1,46 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <stdexcept>
-#include <ios>
-#include <iomanip>
 #include "grade.h"
 #include "median.h"
 #include "student.h"
 
 using std::cout;    using std::cin;
 using std::string;  using std::sort;
-using std::istream; 
-using std::domain_error;    
-using std::streamsize;
-using std::setprecision;
-using std::max;
+using std::max;       
 
 int main() {
 
     Student student;
-    student_con classlist;
+    student_con did, didnt;
     string::size_type maxlen = 0;
 
     while (read(cin, student)) {
         maxlen = max(maxlen, student.name.size());
-        classlist.push_back(student);
+
+        if (did_all_hw(student))
+            did.push_back(student);
+        else
+            didnt.push_back(student);
     }
 
-    // change this!
-    classlist.sort(compare);
-    
-    for (student_con::const_iterator iter = classlist.begin(); 
-        iter != classlist.end(); iter++) {
-        cout << iter->name 
-            << string(maxlen + 1 - iter->name.size(), ' ');
-        try {
-            double finalgrade = grade(*iter);
-            streamsize orig = cout.precision();
-            cout << setprecision(3)
-                << finalgrade << setprecision(orig);
-        } 
-        catch (domain_error e) {
-            cout << e.what();
-        }
-        cout << std::endl;    
+    if(did.empty()){
+        cout << "No student did all the homework!";
+        return 1;
     }
-    cin.get();
+    if(didnt.empty()){
+        cout << "All student did all their homework!";
+        return 1;
+    }
+    extract_fails(did); extract_fails(didnt);
+
+    // change this!
+    sort(did.begin(), did.end(), compare);
+    sort(didnt.begin(), didnt.end(), compare);
+    
+    write_analysis(cout, "Median", median_analysis, did, didnt);
+    write_analysis(cout, "Average", avg_analysis, did, didnt);
+    write_analysis(cout, "Median of homework turned in", opt_median_analysis, did, didnt);
+    
     return 0;
 }

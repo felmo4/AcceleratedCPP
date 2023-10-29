@@ -1,7 +1,8 @@
 #include "student.h"
+#include <algorithm>
 
 using std::cout; using std::cin;
-using std::istream;
+using std::istream; using std::find;
 
 bool compare (const Student& stud1, const Student& stud2) {
     return stud1.name < stud2.name;
@@ -28,4 +29,8 @@ istream& read (istream& in, Student& stud) {
     cout << "Homeworks: \n";
     read_hw (in, stud.homework);
     return in;
+}
+
+bool did_all_hw(const Student& s){
+    return ((find(s.homework.begin(), s.homework.end(), 0)) == s.homework.end());
 }
