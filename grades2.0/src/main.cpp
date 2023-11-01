@@ -38,9 +38,9 @@ int main() {
     sort(did.begin(), did.end(), compare);
     sort(didnt.begin(), didnt.end(), compare);
     
-    write_analysis(cout, "Median", median_analysis, did, didnt);
-    write_analysis(cout, "Average", avg_analysis, did, didnt);
-    write_analysis(cout, "Median of homework turned in", opt_median_analysis, did, didnt);
+    write_analysis(cout, "Median", grade_aux, did, didnt);
+    write_analysis(cout, "Average", avg_grade, did, didnt);
+    write_analysis(cout, "Median of homework turned in", opt_median, did, didnt);
     
     return 0;
 }

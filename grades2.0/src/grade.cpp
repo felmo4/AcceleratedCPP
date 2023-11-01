@@ -35,26 +35,12 @@ double grade_aux(const Student& s){
     }
 }
 
-double median_analysis(const student_con& classlist) {
-    double_con grades;
-    transform (classlist.begin(), classlist.end(), 
-        back_inserter(grades), grade_aux);
-    return median(grades);
-}
-
 double average(const double_con& con){
     return accumulate(con.begin(), con.end(), 0.0) / con.size();
 }
 
 double avg_grade(const Student& s){
     return grade (s.midterm, s.final, average(s.homework));
-}
-
-double avg_analysis(const student_con& classlist) {
-    double_con grades;
-    transform (classlist.begin(), classlist.end(), 
-        back_inserter(grades), avg_grade);
-    return median(grades);
 }
 
 double opt_median(const Student& s){
@@ -67,18 +53,18 @@ double opt_median(const Student& s){
         return grade(s.midterm, s.final, median(nonzero));
 }
 
-double opt_median_analysis (const student_con& classlist){
+double analysis (const student_con& classlist, double grade_func(const Student&)){
     double_con grades;
     transform (classlist.begin(), classlist.end(), 
-        back_inserter(grades), opt_median);
+        back_inserter(grades), grade_func);
     return median(grades);
 }
 
 void write_analysis(ostream& out, const string& name, 
-    double analysis(const student_con&),
+    double grade_func(const Student&),
     const student_con& did, const student_con& didnt){
-    out << name << ": median(did)" << analysis(did) 
-                << ": median(didnt)" << analysis(didnt)
+    out << name << ": median(did)" << analysis(did, grade_func) 
+                << ": median(didnt)" << analysis(didnt, grade_func)
                 << std::endl;
 }
 
