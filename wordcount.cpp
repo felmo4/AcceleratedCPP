@@ -2,12 +2,15 @@
 #include <string>
 #include <vector>
 #include <iomanip>
+#include <map>
 
 using std::cout;    using std::cin;
 using std::string;  using std::istream;
-using std::vector;  
+using std::vector;  using std::map;
+using std::iterator;
 
-istream& read_count (istream& in, vector<string>& text, vector<int>& count) {
+// using two vectors
+istream& count_vector (istream& in, vector<string>& text, vector<int>& count) {
     string word;
     while (in >> word){
 
@@ -30,17 +33,29 @@ istream& read_count (istream& in, vector<string>& text, vector<int>& count) {
             }
         }
     }
-    return in;
-}
 
-int main() {
-    cout << "Type anything: ";
-    vector<string> text;
-    vector<int> count;
-    read_count (cin, text, count);
     for (vector<string>::size_type i = 0; i != text.size(); i++) {
         cout << text[i] << std::setw(20 - text[i].size())
         << count[i] << std::endl;
     }
+    return in;
+}
+
+// using a map
+void count_map (istream& in, map<string, int>& wordcount){
+    string text;
+    while(cin >> text){
+        ++wordcount[text];
+    }
+    for (map<string, int>::const_iterator iter = wordcount.begin();
+        iter != wordcount.end(); ++iter){
+            cout << iter->first << "\t" << iter->second << "\n";
+        }
+}
+
+int main() {
+    cout << "Type anything: ";
+    map<string, int> wordcount;
+    count_map (cin, wordcount);
     return 0;
 }
