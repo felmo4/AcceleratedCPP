@@ -15,6 +15,6 @@ double grade (double midterm, double final, const double_con& hw) {
     return grade (midterm, final, median(hw));
 }
 
-double grade (const Student& s) {
-    return grade (s.midterm, s.final, s.homework);
+double Student::grade () const{
+    return ::grade (midterm, final, homework);
 }

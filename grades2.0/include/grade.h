@@ -5,6 +5,5 @@
 
 double grade (double, double, double);
 double grade (double, double, const double_con&);
-double grade (const Student&);
 
 #endif

@@ -22,8 +22,8 @@ int main() {
     student_con classlist;
     string::size_type maxlen = 0;
 
-    while (read(cin, student)) {
-        maxlen = max(maxlen, student.name.size());
+    while (student.read(cin)) {
+        maxlen = max(maxlen, student.name().size());
         classlist.push_back(student);
     }
 
@@ -32,10 +32,10 @@ int main() {
     
     for (student_con::const_iterator iter = classlist.begin(); 
         iter != classlist.end(); iter++) {
-        cout << iter->name 
-            << string(maxlen + 1 - iter->name.size(), ' ');
+        cout << iter->name() 
+            << string(maxlen + 1 - iter->name().size(), ' ');
         try {
-            double finalgrade = grade(*iter);
+            double finalgrade = iter->grade();
             streamsize orig = cout.precision();
             cout << setprecision(3)
                 << finalgrade << setprecision(orig);

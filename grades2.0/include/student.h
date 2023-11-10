@@ -12,15 +12,21 @@
 typedef std::list<double> double_con; 
 
 struct Student {
-    std::string name;
+    std::string n;
     double midterm, final;
     double_con homework;
+    public:
+    Student();
+    Student(std::istream&);
+    bool valid() const {return !homework.empty();};
+    std::string name() const {return n;};
+    std::istream& read(std::istream&);
+    double grade() const;
 };
 
 typedef std::list<Student> student_con;
 
 bool compare (const Student&, const Student&);
-std::istream& read (std::istream&, Student&);
 std::istream& read_hw (std::istream&, double_con&);
 
 #endif 
